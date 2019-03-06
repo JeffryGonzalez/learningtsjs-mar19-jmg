@@ -97,9 +97,11 @@ describe('variables and constants', () => {
             friends[1] = 'Stacey';
             friends[2] = 42;
 
+        });
+        describe('tuples', () => {
+            it('just the syntax first', () => {
 
-
-
+            });
         });
     });
 });
