@@ -99,9 +99,84 @@ describe('variables and constants', () => {
 
         });
         describe('tuples', () => {
-            it('just the syntax first', () => {
-                // This was the dumb experiment!
+            it('making the case', () => {
+
+                // public string FormatName(string first, string last) {}
+                // interface NameResult {
+                //     fullname: string;
+                //     numberOfLetters: number;
+                // }
+                function add(a: number, b: number): number {
+                    return a + b;
+                }
+
+                interface NameFormattingResult { fullName: string, numberOfLetters: number };
+                function formatName(first: string, last: string): NameFormattingResult {
+                    const fullName = `${last}, ${first}`;
+
+                    return {
+                        fullName: fullName,
+                        numberOfLetters: fullName.length
+                    }
+                }
+
+                const result = formatName('Han', 'Solo');
+                expect(result.fullName).toBe('Solo, Han');
+                expect(result.numberOfLetters).toBe(9);
+
             });
+            it('the syntax', () => {
+                let warren: [string, string, number];
+                warren = ['Warren', 'Ellis', 56];
+
+                // let first = warren[0];
+                // let age = warren[2];
+
+                let [first, , age] = warren;
+
+                expect(first).toBe('Warren');
+                expect(age).toBe(56);
+
+
+            });
+            it('using a tuple', () => {
+
+                type ThingWithLettersAndStuff = string;
+
+                let xname: ThingWithLettersAndStuff;
+
+                type FormatNameResult = [string, number];
+                type NameInput = [string, string];
+                function formatName(input: NameInput): FormatNameResult {
+                    const [first, last] = input;
+                    const fullName = `${last}, ${first}`;
+                    return [fullName, fullName.length];
+                }
+
+                const [name, len] = formatName(['Han', 'Solo']);
+                expect(name).toBe('Solo, Han');
+                expect(len).toBe(9);
+            });
+
+            it('using destructuring on an array', () => {
+                const friends = ['Reggie', 'Susan', 'Neil'];
+                const [first, , last] = friends;
+                expect(first).toBe('Reggie');
+
+                const [firstFriend, ...restOfMyFriends] = friends;
+                expect(firstFriend).toBe('Reggie');
+                expect(restOfMyFriends).toEqual(['Susan', 'Neil']);
+
+            });
+
+            it('using the spread operator', () => {
+
+                const friends = ['Susan', 'Neil'];
+                const newFriends = ['Reggie', ...friends];
+                expect(newFriends).toEqual(['Reggie', 'Susan', 'Neil']);
+            });
+
+
         });
     });
 });
